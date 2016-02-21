@@ -1,0 +1,10 @@
+include DESCRIPTION.rst
+exclude .gitignore
+exclude .coverage
+exclude .travis.yml
+prune .cache
+prune .git
+prune build
+prune dist
+recursive-include tests *
+

@@ -1,0 +1,12 @@
+[report]
+omit =  
+    */python?.?/*
+    *__init__*
+
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain if runnable endpoints aren't run
+    if __name__ == .__main__.:
+
