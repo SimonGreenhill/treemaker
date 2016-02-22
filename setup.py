@@ -3,10 +3,10 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-from treemaker import VERSION
 
 here = path.abspath(path.dirname(__file__))
 
+VERSION = 1.0
 DESCR = """
 A python tool for generating a Newick formatted tree from a
 list of classifications
