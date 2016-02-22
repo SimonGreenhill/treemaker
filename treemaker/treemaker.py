@@ -6,7 +6,10 @@ __copyright__ = 'Copyright (c) 2016 Simon J. Greenhill'
 __license__ = 'New-style BSD'
 
 import os
+import re
+import sys
 import codecs
+import argparse
 
 VERSION = "1.0"
 
@@ -17,6 +20,7 @@ begin trees;
 end;
 """
 
+IS_WHITESPACE = re.compile(r"""\s+""")
 
 
 class Tree(object):
@@ -121,9 +125,9 @@ class TreeMaker(object):
     
     def add_from(self, iterable):
         """
-        Adds all entries from an `iterable`. `iterable` should be a list of lists
-        or a list of tuples (etc) with 2 values - the first one the taxon name, the
-        second the classification string, e.g. 
+        Adds all entries from an `iterable`. `iterable` should be a list of
+        lists or a list of tuples (etc) with 2 values - the first one the taxon
+        name, the second the classification string, e.g.
         
         >>> iterable = [
         >>>     ['taxon1', 'a, a'],
@@ -145,18 +149,43 @@ class TreeMaker(object):
         return [node.strip() for node in classification.strip().split(",")]
     
     def read(self, filename):
-        with codecs.open(filename, 'r', encoding="utf8") as handle: 
+        with codecs.open(filename, 'r', encoding="utf8") as handle:
             for i, line in enumerate(handle, 1):
                 line = line.strip()
                 if len(line) == 0:
                     continue  # skip empty lines
-                if ' ' not in line:
-                    raise ValueError("Malformed line %d -- I need one space: %s" % (i, line))
-                self.add(*[_.strip() for _ in line.split(" ", 1)])
+                
+                if IS_WHITESPACE.findall(line) is None:
+                    raise ValueError(
+                        "Malformed line %d -- I need one space: %s" % (i, line)
+                    )
+                line = [_.strip() for _ in IS_WHITESPACE.split(line, 1)]
+                if len(line) != 2:
+                    raise ValueError("Malformed line %d: %s" % (i, line))
+                self.add(*line)
         return self.tree
     
-    def write(self):
-        return str(self.tree)
+    def write(self, mode="newick"):
+        """
+        Writes the output form of the tree.
+        
+        `mode`:
+            "nexus" = a nexus file is generated
+            "newick" = a newick file (bare tree) is generated
+        
+        Raises ValueError if mode is not "nexus" or "newick".
+        """
+        if mode == 'newick':
+            return str(self.tree)
+        elif mode == 'nexus':
+            return NEXUS_TEMPLATE % {
+                'label': self.tree.node if len(self.tree.node) else 'tree',
+                'tree': str(self.tree),
+            }
+        else:
+            raise ValueError(
+                "Unknown output mode. Please use 'nexus' or 'newick'"
+            )
         
     def write_to_file(self, filename, mode="nexus"):
         """
@@ -173,15 +202,51 @@ class TreeMaker(object):
             raise IOError("File %s already exists" % filename)
         
         if mode == 'nexus':
-            content = NEXUS_TEMPLATE % {
-                'label': self.tree.node if len(self.tree.node) else 'tree',
-                'tree': str(self.tree),
-            }
+            content = self.write(mode="nexus")
         elif mode == 'newick':
-            content = str(self.tree)
+            content = self.write(mode="newick")
         else:
-            raise ValueError("Unknown output mode. Please use 'nexus' or 'newick'")
+            raise ValueError(
+                "Unknown output mode. Please use 'nexus' or 'newick'"
+            )
         
         with codecs.open(filename, 'w') as handle:
             handle.write(content)
-        
+
+
+def parse_args(args):
+    """
+    Parses command line arguments
+
+    Returns a tuple of (inputfile, method, outputfile)
+    """
+    descr = 'Constructs a tree from a classification table'
+    parser = argparse.ArgumentParser(description=descr)
+    parser.add_argument("input", help="inputfile")
+    parser.add_argument(
+        '-o', "--output", dest='output', default=None,
+        help="output file", action='store'
+    )
+    parser.add_argument(
+        '-m', "--mode", dest='mode', choices=['nexus', 'newick'], default="newick",
+        help="output mode: nexus or newick", action='store'
+    )
+    args = parser.parse_args(args)
+    
+    if not os.path.isfile(args.input):
+        raise IOError("File %s does not exist" % args.input)
+    
+    return (args.input, args.mode, args.output)
+
+
+def main(args=None):  # pragma: no cover
+    if args is None:
+        args = sys.argv[1:]
+    infile, mode, outfile = parse_args(args)
+    t = TreeMaker()
+    t.read(infile)
+    
+    if outfile is None:
+        print(t.write(mode=mode))
+    else:
+        t.write_to_file(outfile, mode=mode)

@@ -3,8 +3,7 @@ import unittest
 from tempfile import mkdtemp
 from shutil import rmtree
 
-from treemaker import Tree, TreeMaker
-
+from treemaker import Tree, TreeMaker, parse_args
 
 class Test_Tree(unittest.TestCase):
     
@@ -109,8 +108,8 @@ class Test_Tree(unittest.TestCase):
         
         b = t.add("family b")
         b1 = b.add("subgroup 1")
-        b1a = b1.add("B1a")
-        b2a = b1.add("B1b")
+        b1.add("B1a")
+        b1.add("B1b")
         
         b2 = b.add("subgroup 2")
         b2.add("B2")
@@ -198,8 +197,16 @@ class Test_TreeMakerIO(unittest.TestCase):
         if cls.tmpdir and os.path.isdir(cls.tmpdir):
             rmtree(cls.tmpdir)
     
-    def test_write(self):
-        assert self.t.write() == "((A,(AB1,AB2)),C)"
+    def test_write_newick(self):
+        assert self.t.write(mode="newick") == "((A,(AB1,AB2)),C)"
+
+    def test_write_nexus(self):
+        assert self.t.write(mode="nexus").startswith("#NEXUS")
+        assert "((A,(AB1,AB2)),C)" in self.t.write(mode="nexus")
+    
+    def test_write_nexus_error_on_bad_method(self):
+        with self.assertRaises(ValueError):
+            self.t.write(mode="banana")
     
     def test_write_to_file_error_on_invalid_mode(self):
         outfile = os.path.join(self.tmpdir, 'out1')
@@ -218,10 +225,16 @@ class Test_TreeMakerIO(unittest.TestCase):
     def test_write_to_nexus(self):
         outfile = os.path.join(self.tmpdir, 'out.nex')
         self.t.write_to_file(outfile, mode="nexus")
-
+        with open(outfile, 'r') as handle:
+            content = handle.read().strip()
+        assert content.startswith("#NEXUS")
+            
     def test_write_to_newick(self):
         outfile = os.path.join(self.tmpdir, 'out.nwk')
         self.t.write_to_file(outfile, mode="newick")
+        with open(outfile, 'r') as handle:
+            content = handle.read()
+        assert str(self.t.tree) in content
     
     def test_read(self):
         outfile = os.path.join(self.tmpdir, 'read.txt')
@@ -230,6 +243,17 @@ class Test_TreeMakerIO(unittest.TestCase):
             handle.write('AB1       a, b\n')
             handle.write('AB2       a, b\n')
             handle.write('C         c\n')
+        t = TreeMaker()
+        t.read(outfile)
+        assert str(self.t.tree) == str(t.tree)
+
+    def test_read_with_tabs(self):
+        outfile = os.path.join(self.tmpdir, 'read.txt')
+        with open(outfile, 'w') as handle:
+            handle.write('A\ta\n')
+            handle.write('AB1\ta, b\n')
+            handle.write('AB2\ta, b\n')
+            handle.write('C\tc\n')
         t = TreeMaker()
         t.read(outfile)
         assert str(self.t.tree) == str(t.tree)
@@ -254,6 +278,33 @@ class Test_TreeMakerIO(unittest.TestCase):
         assert str(t.tree) == '(A,B)'
 
 
+class Test_ParseArgs(unittest.TestCase):
+    def test_IOError_on_no_file(self):
+        with self.assertRaises(IOError):
+            parse_args(['a'])
+    
+    def test_parse_filename_only(self):
+        i, m, o = parse_args(['%s' % __file__])
+        assert i == __file__
+        assert m == 'newick'  # default
+        assert o == None  # No output file
+    
+    def test_parse_filename_and_output(self):
+        i, m, o = parse_args(['%s' % __file__, '-o', 'test'])
+        assert i == __file__
+        assert m == 'newick'  # default
+        assert o == 'test', repr(o)
+
+    def test_parse_mode(self):
+        i, m, o = parse_args(['%s' % __file__, '-m' , 'newick'])
+        assert i == __file__
+        assert m == 'newick'
+        
+        i, m, o = parse_args(['%s' % __file__, '-m', 'nexus'])
+        assert i == __file__
+        assert m == 'nexus'
+        
+        
 
 if __name__ == '__main__':
     unittest.main()

@@ -7,6 +7,11 @@ from treemaker import VERSION
 
 here = path.abspath(path.dirname(__file__))
 
+DESCR = """
+A python tool for generating a Newick formatted tree from a
+list of classifications
+""".replace("\n", "").strip().lstrip()
+
 # Get the long description from the relevant file
 with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
@@ -14,7 +19,7 @@ with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
 setup(
     name='treemaker',
     version=VERSION,
-    description='A python tool for generating a Newick formatted tree from a list of classifications',
+    description=DESCR,
     long_description=long_description,
     url='https://github.com/SimonGreenhill/treemaker',
     author='Simon J. Greenhill',
@@ -40,9 +45,9 @@ setup(
     packages=find_packages(),
     install_requires=[],
     entry_points={
-       'console_scripts': [
-           'treemaker = treemaker.bin.treemaker:main'
-       ],
+        'console_scripts': [
+            'treemaker = treemaker:main'
+        ],
     },
     test_suite="treemaker.test_treemaker",
 )
