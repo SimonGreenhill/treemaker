@@ -8,7 +8,6 @@ A python library for creating a Newick formatted tree from a set of classificati
 
 ## Usage: Command line
 
-
 Basic usage: 
 
 ```shell
@@ -17,15 +16,35 @@ Basic usage:
 usage: treemaker [-h] filename
 ```
 
-Construct tree for filename
-```shell
-> treemaker 
+e.g. Given a text file:
 
-taxon1              0.2453
-taxon2              0.2404
-taxon3              0.2954
-...
+LangA   Indo-European, Germanic
+LangB   Indo-European, Germanic
+LangC   Indo-European, Romance
+LangD   Indo-European, Anatolian
+
+```shell
+> treemaker classification.txt
+(LangD,(LangA,LangB),LangC)
+
+> treemaker -m nexus classification.txt
+
+#NEXUS
+
+begin trees;
+   tree root = (LangD,(LangA,LangB),LangC);
+end;
 ```
+
+To write to file:
+
+```shell
+> treemaker classification.txt
+(LangD,(LangA,LangB),LangC)
+
+> treemaker classification.txt -o classification.nex
+```
+
 
 ## Usage: Library
 
