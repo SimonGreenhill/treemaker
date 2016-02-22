@@ -85,8 +85,9 @@ class Tree(object):
         """Returns a list of the tips in the tree"""
         node = self if node is None else node
         for child in node.children:
-            if child.is_node:
-                yield from self.tips(child)
+            if child.is_node:  # remove yield from so we can support py2.7
+                for n in self.tips(child):
+                    yield n
             if child.is_tip:
                 yield child
     
