@@ -19,10 +19,14 @@ usage: treemaker [-h] filename
 
 e.g. Given a text file:
 
+```
 LangA   Indo-European, Germanic
 LangB   Indo-European, Germanic
 LangC   Indo-European, Romance
 LangD   Indo-European, Anatolian
+```
+
+... then you can build a taxonomy/classification tree from that as follows:
 
 ```shell
 > treemaker classification.txt
