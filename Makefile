@@ -6,7 +6,7 @@ build:
 release:
 	python setup.py sdist bdist_wheel upload
 
-test:
+test: clean
 	py.test --cov
 
 clean:
