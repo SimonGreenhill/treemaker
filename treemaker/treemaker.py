@@ -110,10 +110,16 @@ class TreeMaker(object):
         self.tree = Tree(label)
         self._added = set()
     
+    def _check_taxon(self, taxon):
+        for char in "()":
+            if char in taxon:
+                raise ValueError("Error: %s is not allowed in taxon names" % char)
+    
     def add(self, leaf, classification):
         """
         Adds `leaf` to the tree in the location specified by `classification`
         """
+        self._check_taxon(leaf)
         if (leaf, classification) in self._added:
             raise ValueError("Duplicate Taxon/Classification")
         

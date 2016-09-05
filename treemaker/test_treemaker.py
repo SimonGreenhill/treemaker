@@ -132,6 +132,15 @@ class Test_Tree(unittest.TestCase):
         
 
 class Test_TreeMaker(unittest.TestCase):
+    def test_error_on_bad_taxon(self):
+        t = TreeMaker()
+        with self.assertRaises(ValueError):
+            t.add('A (x)', 'a')
+        with self.assertRaises(ValueError):
+            t.add('A)', 'a')
+        with self.assertRaises(ValueError):
+            t.add('A(', 'a')
+        
     def test_parse_classification(self):
         t = TreeMaker()
         assert t.parse_classification("a, b, c") == ['a', 'b', 'c']
