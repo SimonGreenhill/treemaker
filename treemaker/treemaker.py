@@ -184,7 +184,7 @@ class TreeMaker(object):
             return str(self.tree)
         elif mode == 'nexus':
             return NEXUS_TEMPLATE % {
-                'label': self.tree.node if len(self.tree.node) else 'tree',
+                'label': self.tree.node if self.tree.node else 'tree',
                 'tree': str(self.tree),
             }
         else:
