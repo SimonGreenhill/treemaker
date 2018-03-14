@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
-"""..."""
+"""TreeMaker"""
 __author__ = 'Simon J. Greenhill <simon@simon.net.nz>'
 __copyright__ = 'Copyright (c) 2016 Simon J. Greenhill'
 __license__ = 'New-style BSD'
@@ -66,8 +66,7 @@ class Tree(object):
         found = self.get(label)
         if found:
             return found
-        else:
-            return self.add(label)
+        return self.add(label)
     
     def get(self, label, node=None):
         """Searches tree for node `label`"""
@@ -75,10 +74,9 @@ class Tree(object):
         for child in node.children:
             if child.node == label:
                 return child
-            else:
-                found = self.get(label, child)
-                if found:
-                    return found
+            found = self.get(label, child)
+            if found:
+                return found
         return None
     
     def tips(self, node=None):
@@ -95,7 +93,7 @@ class Tree(object):
         return "<Tree: %s>" % self.node
     
     def __str__(self):
-        if len(self.children) == 0:
+        if not self.children:
             return self.node
         else:
             out = ",".join([str(c) for c in sorted(self.children)])
@@ -159,7 +157,7 @@ class TreeMaker(object):
         with codecs.open(filename, 'r', encoding="utf8") as handle:
             for i, line in enumerate(handle, 1):
                 line = line.strip()
-                if len(line) == 0:
+                if not line:
                     continue  # skip empty lines
                 
                 if IS_WHITESPACE.findall(line) is None:

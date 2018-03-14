@@ -43,6 +43,7 @@ setup(
     ],
     keywords='phylogenetics newick taxonomy',
     packages=find_packages(),
+    package_dir={'pysrc': 'quartetdist'},
     install_requires=[],
     entry_points={
         'console_scripts': [

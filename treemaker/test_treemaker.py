@@ -296,7 +296,7 @@ class Test_ParseArgs(unittest.TestCase):
         i, m, o = parse_args(['%s' % __file__])
         assert i == __file__
         assert m == 'newick'  # default
-        assert o == None  # No output file
+        assert o is None  # No output file
     
     def test_parse_filename_and_output(self):
         i, m, o = parse_args(['%s' % __file__, '-o', 'test'])
@@ -312,10 +312,8 @@ class Test_ParseArgs(unittest.TestCase):
         i, m, o = parse_args(['%s' % __file__, '-m', 'nexus'])
         assert i == __file__
         assert m == 'nexus'
-        
-        
+
 
 if __name__ == '__main__':
     unittest.main()
-
 
