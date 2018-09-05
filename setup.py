@@ -14,7 +14,7 @@ list of classifications
 """.replace("\n", "").strip().lstrip()
 
 # Get the long description from the relevant file
-with codecs.open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
+with codecs.open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
