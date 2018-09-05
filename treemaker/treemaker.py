@@ -11,7 +11,7 @@ import sys
 import codecs
 import argparse
 
-VERSION = "1.0"
+VERSION = "v1.0.2"
 
 NEXUS_TEMPLATE = """#NEXUS
 
