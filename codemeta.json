@@ -1,0 +1,23 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "http://orcid.org/0000-0001-7832-6156",
+      "@type": "Person",
+      "email": "simon@simon.net.nz",
+      "name": "Simon J. Greenhill",
+      "affiliation": "Max Planck Institute for the Science of Human History & ARC Centre of Excellence for the Dynamics of Language, Australian National University"
+    }
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/SimonGreenhill/treemaker",
+  "datePublished": "2018-09-05",
+  "dateModified": "2018-09-05",
+  "dateCreated": "2018-09-05",
+  "description": " A Python tool for constructing a newick formatted tree from a set of classifications.",
+  "keywords": "phylogenetics,newick",
+  "license": "BSD",
+  "title": "treemaker",
+  "version": "1.0.2"
+}
