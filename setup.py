@@ -6,7 +6,7 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-VERSION = 1.01
+VERSION = "v1.0.2"
 DESCR = """
 A python tool for generating a Newick formatted tree from a
 list of classifications
