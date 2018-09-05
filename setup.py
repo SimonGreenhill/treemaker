@@ -6,7 +6,8 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-VERSION = "v1.0.2"
+from treemaker.treemaker import VERSION
+
 DESCR = """
 A python tool for generating a Newick formatted tree from a
 list of classifications
@@ -40,10 +41,12 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
     keywords='phylogenetics newick taxonomy',
     packages=find_packages(),
-    package_dir={'pysrc': 'quartetdist'},
+    package_dir={},
     install_requires=[],
     entry_points={
         'console_scripts': [
