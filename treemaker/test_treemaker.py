@@ -82,7 +82,6 @@ class Test_Tree(unittest.TestCase):
         t = Tree('root', ['A', 'B'])
         t.get("B").add("sub", ["b1", "b2"])
         assert t.get("A").is_node is False
-        #assert t.get("B").is_node
         assert t.get("b1").is_node is False
         assert t.get("b2").is_node is False
     
@@ -186,9 +185,8 @@ class Test_TreeMaker(unittest.TestCase):
 
 class Test_TreeMakerIO(unittest.TestCase):
     """
-    Test the IO functionality of TreeMaker
-    
-    In its own test class as there is setup/teardown logic.
+    Test the IO functionality of TreeMaker in its own test class as there is setup/teardown
+    logic.
     """
     
     @classmethod
@@ -207,7 +205,7 @@ class Test_TreeMakerIO(unittest.TestCase):
             rmtree(cls.tmpdir)
     
     def test_write_newick(self):
-        assert self.t.write(mode="newick") == "((A,(AB1,AB2)),C)"
+        assert self.t.write(mode="newick") == "((A,(AB1,AB2)),C);"
 
     def test_write_nexus(self):
         assert self.t.write(mode="nexus").startswith("#NEXUS")
@@ -300,6 +298,12 @@ class Test_ParseArgs(unittest.TestCase):
     
     def test_parse_filename_and_output(self):
         i, m, o = parse_args(['%s' % __file__, '-o', 'test'])
+        assert i == __file__
+        assert m == 'newick'  # default
+        assert o == 'test', repr(o)
+
+    def test_parse_filename_and_full_output(self):
+        i, m, o = parse_args(['%s' % __file__, '--output', 'test'])
         assert i == __file__
         assert m == 'newick'  # default
         assert o == 'test', repr(o)

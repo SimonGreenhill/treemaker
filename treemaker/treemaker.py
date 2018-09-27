@@ -11,12 +11,12 @@ import sys
 import codecs
 import argparse
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 NEXUS_TEMPLATE = """#NEXUS
 
 begin trees;
-   tree %(label)s = %(tree)s;
+   tree %(label)s = %(tree)s
 end;
 """
 
@@ -181,7 +181,7 @@ class TreeMaker(object):
         Raises ValueError if mode is not "nexus" or "newick".
         """
         if mode == 'newick':
-            return str(self.tree)
+            return "%s;" % str(self.tree)
         elif mode == 'nexus':
             return NEXUS_TEMPLATE % {
                 'label': self.tree.node if self.tree.node else 'tree',
