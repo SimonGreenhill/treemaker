@@ -1,0 +1,5 @@
+#NEXUS
+
+begin trees;
+   tree root = ((Baniata,Bilua,Lavukaleve,Savosavo),(Dororo,Guliguli,Kazukuru),Yele)
+end;
