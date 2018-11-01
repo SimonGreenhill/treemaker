@@ -6,6 +6,21 @@ A python library for creating a Newick formatted tree from a set of classificati
 [![Coverage Status](https://coveralls.io/repos/SimonGreenhill/treemaker/badge.svg?branch=master&service=github)](https://coveralls.io/github/SimonGreenhill/treemaker?branch=master)
 [![DOI](https://zenodo.org/badge/22704/SimonGreenhill/treemaker.svg)](https://zenodo.org/badge/latestdoi/22704/SimonGreenhill/treemaker)
 
+## Installation:
+
+Installation is only a pip install away:
+
+```shell
+pip install treemaker
+```
+
+Or from git:
+
+```shell
+git clone https://github.com/SimonGreenhill/treemaker/ treemaker
+cd treemaker
+python setup.py install
+```
 
 ## Usage: Command line
 
