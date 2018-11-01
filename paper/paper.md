@@ -13,7 +13,7 @@ affiliations:
    index: 1
  - name: ARC Centre of Excellence for the Dynamics of Language, Australian National University, Canberra, Australia.
    index: 2
-date: 27 September 2018
+date: \today
 bibliography: paper.bib
 ---
 

@@ -8,7 +8,10 @@ release:
 
 docs:
 	sphinx-apidoc -f -o docs/source treemaker
-	cd docs/; make html; cd ..
+	$(shell cd docs/; make html)
+
+paper/paper.pdf:
+	$(shell cd paper; pandoc --filter pandoc-citeproc --pdf-engine xelatex --bibliography paper.bib -f markdown paper.md -o paper.pdf)
 
 test: clean
 	py.test --cov
