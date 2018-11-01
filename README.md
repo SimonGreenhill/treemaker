@@ -1,6 +1,6 @@
 # treemaker
 
-A python library for creating a Newick formatted tree from a set of classification strings (e.g. a taxonomy)
+A Python library for creating a Newick formatted tree from a set of classification strings (e.g. a taxonomy)
 
 [![Build Status](https://travis-ci.org/SimonGreenhill/treemaker.svg?branch=master)](https://travis-ci.org/SimonGreenhill/treemaker)
 [![Coverage Status](https://coveralls.io/repos/SimonGreenhill/treemaker/badge.svg?branch=master&service=github)](https://coveralls.io/github/SimonGreenhill/treemaker?branch=master)
