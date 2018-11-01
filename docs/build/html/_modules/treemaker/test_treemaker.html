@@ -1,0 +1,424 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>treemaker.test_treemaker &#8212; treemaker 1.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for treemaker.test_treemaker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">mkdtemp</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">rmtree</span>
+
+<span class="kn">from</span> <span class="nn">treemaker</span> <span class="k">import</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">TreeMaker</span><span class="p">,</span> <span class="n">parse_args</span>
+
+<div class="viewcode-block" id="Test_Tree"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree">[docs]</a><span class="k">class</span> <span class="nc">Test_Tree</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    
+<div class="viewcode-block" id="Test_Tree.test_gt"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_gt">[docs]</a>    <span class="k">def</span> <span class="nf">test_gt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Test_Tree.test_lt"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_lt">[docs]</a>    <span class="k">def</span> <span class="nf">test_lt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_eq"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_eq">[docs]</a>    <span class="k">def</span> <span class="nf">test_eq</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_repr"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_repr">[docs]</a>    <span class="k">def</span> <span class="nf">test_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">repr</span><span class="p">(</span><span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;&lt;Tree: a&gt;&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_empty_tree"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_empty_tree">[docs]</a>    <span class="k">def</span> <span class="nf">test_empty_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">Tree</span><span class="p">())</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_singleton_tree"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_singleton_tree">[docs]</a>    <span class="k">def</span> <span class="nf">test_singleton_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_simple"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_simple">[docs]</a>    <span class="k">def</span> <span class="nf">test_simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;(A,B,C)&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_add"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_add">[docs]</a>    <span class="k">def</span> <span class="nf">test_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;(A,B,C)&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_recursive_add"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_recursive_add">[docs]</a>    <span class="k">def</span> <span class="nf">test_recursive_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;(A,(b1,b2))&quot;</span></div>
+
+<div class="viewcode-block" id="Test_Tree.test_get"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_get">[docs]</a>    <span class="k">def</span> <span class="nf">test_get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;c1&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;c2&quot;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;b1&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;(A,b1,(c1,c2))&quot;</span>
+        <span class="c1"># try from different depths</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;c1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="s1">&#39;c1&#39;</span>
+        <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;c1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="s1">&#39;c1&#39;</span></div>
+
+<div class="viewcode-block" id="Test_Tree.test_real"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_real">[docs]</a>    <span class="k">def</span> <span class="nf">test_real</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># yon  Trans-New Guinea, Ok-Awyu, Ok, Lowland</span>
+        <span class="c1"># bhl  Trans-New Guinea, Ok-Awyu, Ok, Mountain</span>
+        <span class="c1"># fai  Trans-New Guinea, Ok-Awyu, Ok, Mountain</span>
+        <span class="c1"># yir  Trans-New Guinea, Ok-Awyu, Awyu-Dumut, Awyu</span>
+        <span class="c1"># aax  Trans-New Guinea, Ok-Awyu, Awyu-Dumut, Dumut</span>
+        <span class="c1"># bwp  Trans-New Guinea, Ok-Awyu, Awyu-Dumut, Dumut</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s2">&quot;Ok-Awyu&quot;</span><span class="p">)</span>
+        
+        <span class="n">Ok</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Mountain&#39;</span><span class="p">,</span> <span class="s1">&#39;Lowland&#39;</span><span class="p">])</span>
+        <span class="n">Ok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Lowland&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;yon&#39;</span><span class="p">)</span>
+        <span class="n">Ok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Mountain&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;bhl&#39;</span><span class="p">)</span>
+        <span class="n">Ok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Mountain&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;fai&#39;</span><span class="p">)</span>
+        
+        <span class="n">AD</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;Awyu-Dumut&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Awyu&#39;</span><span class="p">,</span> <span class="s1">&#39;Dumut&#39;</span><span class="p">])</span>
+        <span class="n">AD</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Awyu&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;yir&#39;</span><span class="p">)</span>
+        <span class="n">AD</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Dumut&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;aax&#39;</span><span class="p">)</span>
+        <span class="n">AD</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Dumut&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;bwp&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;((yir,(aax,bwp)),(yon,(bhl,fai)))&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_is_tip"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_is_tip">[docs]</a>    <span class="k">def</span> <span class="nf">test_is_tip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_tip</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_tip</span> <span class="ow">is</span> <span class="kc">False</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_tip</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_tip</span></div>
+        
+<div class="viewcode-block" id="Test_Tree.test_is_node"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_is_node">[docs]</a>    <span class="k">def</span> <span class="nf">test_is_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_node</span> <span class="ow">is</span> <span class="kc">False</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_node</span> <span class="ow">is</span> <span class="kc">False</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_node</span> <span class="ow">is</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_tips"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_tips">[docs]</a>    <span class="k">def</span> <span class="nf">test_tips</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">list</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">node</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">tips</span><span class="p">()])</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="p">]</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_conflicts"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_conflicts">[docs]</a>    <span class="k">def</span> <span class="nf">test_conflicts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">])</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;((b1,b2),(b1,b2))&#39;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_example"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_example">[docs]</a>    <span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;family a&quot;</span><span class="p">)</span>
+        <span class="n">a1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;subgroup 1&quot;</span><span class="p">)</span>
+        <span class="n">a1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;A1&quot;</span><span class="p">)</span>
+        
+        <span class="n">a2</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;subgroup 2&quot;</span><span class="p">)</span>
+        <span class="n">a2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;A2&quot;</span><span class="p">)</span>
+        
+        <span class="n">b</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;family b&quot;</span><span class="p">)</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;subgroup 1&quot;</span><span class="p">)</span>
+        <span class="n">b1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;B1a&quot;</span><span class="p">)</span>
+        <span class="n">b1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;B1b&quot;</span><span class="p">)</span>
+        
+        <span class="n">b2</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;subgroup 2&quot;</span><span class="p">)</span>
+        <span class="n">b2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;B2&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;((A1,A2),((B1a,B1b),B2))&#39;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_get_or_create"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_get_or_create">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="s2">&quot;c1&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="s2">&quot;c2&quot;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;b1&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;(A,b1,(c1,c2))&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_Tree.test_deep_tree"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_Tree.test_deep_tree">[docs]</a>    <span class="k">def</span> <span class="nf">test_deep_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">)</span>
+        <span class="n">taxon</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="n">taxon</span> <span class="o">=</span> <span class="n">taxon</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;(0,(1,(2,(3,(4,(5,(6,(7,(8,9)))))))))&quot;</span></div></div>
+        
+
+<div class="viewcode-block" id="Test_TreeMaker"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker">[docs]</a><span class="k">class</span> <span class="nc">Test_TreeMaker</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="Test_TreeMaker.test_error_on_bad_taxon"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker.test_error_on_bad_taxon">[docs]</a>    <span class="k">def</span> <span class="nf">test_error_on_bad_taxon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A (x)&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A)&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A(&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Test_TreeMaker.test_parse_classification"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker.test_parse_classification">[docs]</a>    <span class="k">def</span> <span class="nf">test_parse_classification</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">parse_classification</span><span class="p">(</span><span class="s2">&quot;a, b, c&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">t</span><span class="o">.</span><span class="n">parse_classification</span><span class="p">(</span><span class="s2">&quot;family a, subgroup 1&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+            <span class="s1">&#39;family a&#39;</span><span class="p">,</span> <span class="s1">&#39;subgroup 1&#39;</span>
+        <span class="p">]</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMaker.test_add"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker.test_add">[docs]</a>    <span class="k">def</span> <span class="nf">test_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;AB1&#39;</span><span class="p">,</span> <span class="s1">&#39;a, b&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;AB2&#39;</span><span class="p">,</span> <span class="s1">&#39;a, b&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;((A,(AB1,AB2)),C)&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMaker.test_add_2"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker.test_add_2">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;family a, subgroup 1&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A2&#39;</span><span class="p">,</span> <span class="s1">&#39;family a, subgroup 2&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;B1a&#39;</span><span class="p">,</span> <span class="s1">&#39;family b, subgroup 1&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;B1b&#39;</span><span class="p">,</span> <span class="s1">&#39;family b, subgroup 1&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;B2&#39;</span><span class="p">,</span> <span class="s1">&#39;family b, subgroup 2&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;((A1,A2),((B1a,B1b),B2))&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMaker.test_add_from"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker.test_add_from">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_from</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">taxa</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;family a, subgroup 1&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;A2&#39;</span><span class="p">,</span> <span class="s1">&#39;family a, subgroup 2&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;B1a&#39;</span><span class="p">,</span> <span class="s1">&#39;family b, subgroup 1&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;B1b&#39;</span><span class="p">,</span> <span class="s1">&#39;family b, subgroup 1&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;B2&#39;</span><span class="p">,</span> <span class="s1">&#39;family b, subgroup 2&#39;</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add_from</span><span class="p">(</span><span class="n">taxa</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;((A1,A2),((B1a,B1b),B2))&quot;</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMaker.test_error_on_duplicate"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMaker.test_error_on_duplicate">[docs]</a>    <span class="k">def</span> <span class="nf">test_error_on_duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Test_TreeMakerIO"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO">[docs]</a><span class="k">class</span> <span class="nc">Test_TreeMakerIO</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test the IO functionality of TreeMaker in its own test class as there is setup/teardown</span>
+<span class="sd">    logic.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.setUpClass"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;AB1&#39;</span><span class="p">,</span> <span class="s1">&#39;a, b&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;AB2&#39;</span><span class="p">,</span> <span class="s1">&#39;a, b&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+        
+        <span class="bp">cls</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.tearDownClass"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.tearDownClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tmpdir</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">):</span>
+            <span class="n">rmtree</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_newick"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_newick">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_newick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;newick&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;((A,(AB1,AB2)),C);&quot;</span></div>
+
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_nexus"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_nexus">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_nexus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;nexus&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#NEXUS&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="s2">&quot;((A,(AB1,AB2)),C)&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;nexus&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_nexus_error_on_bad_method"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_nexus_error_on_bad_method">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_nexus_error_on_bad_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_to_file_error_on_invalid_mode"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_to_file_error_on_invalid_mode">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_to_file_error_on_invalid_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;out1&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_to_file_error_on_existing_file"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_to_file_error_on_existing_file">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_to_file_error_on_existing_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;out2&#39;</span><span class="p">)</span>
+        <span class="c1"># create</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;important data&#39;</span><span class="p">)</span>
+        
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">IOError</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_to_nexus"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_to_nexus">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_to_nexus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;out.nex&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;nexus&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">content</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#NEXUS&quot;</span><span class="p">)</span></div>
+            
+<div class="viewcode-block" id="Test_TreeMakerIO.test_write_to_newick"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_write_to_newick">[docs]</a>    <span class="k">def</span> <span class="nf">test_write_to_newick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;out.nwk&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;newick&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="ow">in</span> <span class="n">content</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_read"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_read">[docs]</a>    <span class="k">def</span> <span class="nf">test_read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;read.txt&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;A         a</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;AB1       a, b</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;AB2       a, b</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;C         c</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Test_TreeMakerIO.test_read_with_tabs"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_read_with_tabs">[docs]</a>    <span class="k">def</span> <span class="nf">test_read_with_tabs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;read.txt&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;A</span><span class="se">\t</span><span class="s1">a</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;AB1</span><span class="se">\t</span><span class="s1">a, b</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;AB2</span><span class="se">\t</span><span class="s1">a, b</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;C</span><span class="se">\t</span><span class="s1">c</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Test_TreeMakerIO.test_read_error_on_malformed"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_read_error_on_malformed">[docs]</a>    <span class="k">def</span> <span class="nf">test_read_error_on_malformed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;read-error.txt&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aasasd</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Test_TreeMakerIO.test_read_skips_empty_lines"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_TreeMakerIO.test_read_skips_empty_lines">[docs]</a>    <span class="k">def</span> <span class="nf">test_read_skips_empty_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;read-empty.txt&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;A         a</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;B         b</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">TreeMaker</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;(A,B)&#39;</span></div></div>
+
+
+<div class="viewcode-block" id="Test_ParseArgs"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_ParseArgs">[docs]</a><span class="k">class</span> <span class="nc">Test_ParseArgs</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="Test_ParseArgs.test_IOError_on_no_file"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_ParseArgs.test_IOError_on_no_file">[docs]</a>    <span class="k">def</span> <span class="nf">test_IOError_on_no_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">IOError</span><span class="p">):</span>
+            <span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">])</span></div>
+    
+<div class="viewcode-block" id="Test_ParseArgs.test_parse_filename_only"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_ParseArgs.test_parse_filename_only">[docs]</a>    <span class="k">def</span> <span class="nf">test_parse_filename_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="vm">__file__</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="vm">__file__</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="s1">&#39;newick&#39;</span>  <span class="c1"># default</span>
+        <span class="k">assert</span> <span class="n">o</span> <span class="ow">is</span> <span class="kc">None</span>  <span class="c1"># No output file</span></div>
+    
+<div class="viewcode-block" id="Test_ParseArgs.test_parse_filename_and_output"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_ParseArgs.test_parse_filename_and_output">[docs]</a>    <span class="k">def</span> <span class="nf">test_parse_filename_and_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="vm">__file__</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="s1">&#39;newick&#39;</span>  <span class="c1"># default</span>
+        <span class="k">assert</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">o</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Test_ParseArgs.test_parse_filename_and_full_output"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_ParseArgs.test_parse_filename_and_full_output">[docs]</a>    <span class="k">def</span> <span class="nf">test_parse_filename_and_full_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="vm">__file__</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="s1">&#39;newick&#39;</span>  <span class="c1"># default</span>
+        <span class="k">assert</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">o</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Test_ParseArgs.test_parse_mode"><a class="viewcode-back" href="../../treemaker.html#treemaker.test_treemaker.Test_ParseArgs.test_parse_mode">[docs]</a>    <span class="k">def</span> <span class="nf">test_parse_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span> <span class="p">,</span> <span class="s1">&#39;newick&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="vm">__file__</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="s1">&#39;newick&#39;</span>
+        
+        <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;nexus&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="vm">__file__</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="s1">&#39;nexus&#39;</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">treemaker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Simon J. Greenhill.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -9,7 +9,6 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-build/
 develop-eggs/
 dist/
 .eggs/
@@ -37,5 +36,3 @@ coverage.xml
 # Translations
 *.mo
 
-# Sphinx documentation
-docs/_build/
