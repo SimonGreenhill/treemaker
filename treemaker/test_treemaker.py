@@ -176,6 +176,15 @@ class Test_TreeMaker(unittest.TestCase):
         t.add_from(taxa)
         assert str(t.tree) == "((A1,A2),((B1a,B1b),B2))"
     
+    def test_add_from_exception(self):
+        taxa = [
+            ('A1', 'family a, subgroup 1'),
+            ('A2family a, subgroup 2'),  # oops.
+            ('B1a', 'family b, subgroup 1'),
+        ]
+        with self.assertRaises(ValueError):
+            t = TreeMaker().add_from(taxa)
+
     def test_error_on_duplicate(self):
         t = TreeMaker()
         t.add('A', 'a')
@@ -185,8 +194,8 @@ class Test_TreeMaker(unittest.TestCase):
 
 class Test_TreeMakerIO(unittest.TestCase):
     """
-    Test the IO functionality of TreeMaker in its own test class as there is setup/teardown
-    logic.
+    Test the IO functionality of TreeMaker in its own test class as we need
+    some setup/teardown logic.
     """
     
     @classmethod
