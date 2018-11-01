@@ -45,7 +45,7 @@ LangD   Indo-European, Anatolian
 
 ```shell
 > treemaker classification.txt
-(LangD,(LangA,LangB),LangC)
+(LangD,(LangA,LangB),LangC);
 
 > treemaker -m nexus classification.txt
 
@@ -60,7 +60,7 @@ To write to file:
 
 ```shell
 > treemaker classification.txt
-(LangD,(LangA,LangB),LangC)
+(LangD,(LangA,LangB),LangC);
 
 > treemaker classification.txt -o classification.nex
 ```
