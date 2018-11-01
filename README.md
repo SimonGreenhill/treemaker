@@ -9,23 +9,16 @@ A Python library for creating a Newick formatted tree from a set of classificati
 
 
 
-Often research in linguistics or cultural evolution produces tree taxonomies or classifications. However, these are often not in a format readily available for
-use in programs that can understand and manipulate trees. For example, the global taxonomy of languages published by the
-[Ethnologue](https://www.ethnologue.com/) classifies languages into families and subgroups using a taxonomy string e.g. the language
-[Kalam](https://www.ethnologue.com/language/kmh) is classified as "Trans-New Guinea, Madang, Kalam-Kobon", while
-[Mauwake](https://www.ethnologue.com/language/mhl) is classified as "Trans-New Guinea, Madang, Croisilles, Pihom", and
-[Kare](https://www.ethnologue.com/language/kmf) is "Trans-New Guinea, Madang, Croisilles, Kare". This classification indicates that while all these languages
-are part of the Madang subgroup of the Trans-New Guinea language family, Kare and Mauwake are more closely related (as they belong to the Croisilles
+Often research in linguistics or cultural evolution produces tree taxonomies or classifications. However, these are often not in a format readily available for use in programs that can understand and manipulate trees. For example, the global taxonomy of languages published by the [Ethnologue](https://www.ethnologue.com/) classifies languages into families and subgroups using a taxonomy string e.g. the language [Kalam](https://www.ethnologue.com/language/kmh) is classified as "Trans-New Guinea, Madang, Kalam-Kobon", while [Mauwake](https://www.ethnologue.com/language/mhl) is classified as "Trans-New Guinea, Madang, Croisilles, Pihom", and [Kare](https://www.ethnologue.com/language/kmf) is "Trans-New Guinea, Madang, Croisilles, Kare". This classification indicates that while all these languages are part of the Madang subgroup of the Trans-New Guinea language family, Kare and Mauwake are more closely related (as they belong to the Croisilles
 subgroup).
 
 Other publications use a tabular indented format to demarcate relationships, such as this example from Stephen Wurm's classification of his proposed Yele-Solomons language phylum (Wurm 1975):
 
 ![Example of a language taxonomy in indented format from Wurm (1975).](./paper/wurm1975.png)
 
-
 Both the taxonomy string and tabular format however are hard to load into software packages that can analyse, compare, visualise and manipulate trees.
-```treemaker``` aims to make this easy by converting taxonomic data into [Newick](https://en.wikipedia.org/wiki/Newick_format) and Nexus (Maddison 1997)
-formats commonly used by phylogenetic manipulation programs.
+
+```treemaker``` aims to make this easy by converting taxonomic data into [Newick](https://en.wikipedia.org/wiki/Newick_format) and Nexus (Maddison 1997) formats commonly used by phylogenetic manipulation programs.
 
 ![Tree visualisation of the relationships between these languages.](./paper/tree.png)
 
@@ -33,8 +26,7 @@ formats commonly used by phylogenetic manipulation programs.
 
 ## Converting a Taxonomy to a Tree:
 
-```treemaker``` can convert a text file with a taxonomy (easily obtained from
-Ethnologue or manually entered) like this:
+```treemaker``` can convert a text file with a taxonomy (easily obtained from Ethnologue or Glottolog or manually entered) like this:
 
 ```text
 Bilua       Yele-Solomons, Central Solomon
