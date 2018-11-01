@@ -29,7 +29,7 @@ Basic usage:
 ```shell
 > treemaker
 
-usage: treemaker [-h] filename
+usage: treemaker [-h] [-o OUTPUT] [-m {nexus,newick}] input
 ```
 
 e.g. Given a text file:
