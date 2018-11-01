@@ -13,8 +13,8 @@ Often research in linguistics or cultural evolution produces tree taxonomies or
 classifications. However, these are often not in a format readily available for
 use in programs that can understand and manipulate trees. For example, the
 global taxonomy of languages published by the
-[Ethnologue](https://www.ethnologue.com/) [@Ethnologue] classifies languages
-into families and subgroups using a taxonomy string e.g. the language
+[Ethnologue](https://www.ethnologue.com/) classifies languages into families and
+subgroups using a taxonomy string e.g. the language
 [Kalam](https://www.ethnologue.com/language/kmh) is classified as "Trans-New
 Guinea, Madang, Kalam-Kobon", while
 [Mauwake](https://www.ethnologue.com/language/mhl) is classified as "Trans-New
@@ -189,4 +189,4 @@ For questions on how to use or update this, feel free to [open an issue](https:/
 
 * Bromham, Lindell, Xia Hua, Marcel Cardillo, Hilde Schneemann, & Simon J. Greenhill. 2018. “[Parasites and Politics: Why Cross-Cultural Studies Must Control for Relatedness, Proximity and Covariation](https://doi.org/10.1098/rsos.181100).” Open Science 5 (8). https://doi.org/10.1098/rsos.181100.
 * Maddison, D R, D L Swofford, & Wayne P. Maddison. 1997. “[Nexus: An Extensible File Format for Systematic Information](https://doi.org/10.1093/sysbio/46.4.590).” Systematic Biology 46 (4): 590–621. https://doi.org/10.1093/sysbio/46.4.590.
-* Wurm, S. A. 1975. “[The East Papuan Phylum in General](https: //doi.org/http://dx.doi.org/10.15144/PL-C38).” In New Guinea Area Languages and Language Study: Papuan Languages and the New Guinea Linguistic Scene, edited by S. A. Wurm. Canberra: Pacific Linguistics. https://doi.org/http://dx.doi.org/10.15144/PL-C38.
+* Wurm, S. A. 1975. “[The East Papuan Phylum in General](https://doi.org/http://dx.doi.org/10.15144/PL-C38).” In New Guinea Area Languages and Language Study: Papuan Languages and the New Guinea Linguistic Scene, edited by S. A. Wurm. Canberra: Pacific Linguistics. https://doi.org/http://dx.doi.org/10.15144/PL-C38.
