@@ -116,9 +116,9 @@ The API is [documented here](https://simongreenhill.github.io/treemaker/build/ht
 To run treemaker's tests simply run:
 
 ```shell
-make test
+> make test
 # or
-python setup.py test
+> python setup.py test
 # or
-python treemaker/test_treemaker.py
+> python treemaker/test_treemaker.py
 ```
