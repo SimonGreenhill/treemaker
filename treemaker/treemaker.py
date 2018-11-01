@@ -254,14 +254,11 @@ class TreeMaker(object):
                 if not line:
                     continue  # skip empty lines
                 
-                if IS_WHITESPACE.findall(line) is None:
+                if not IS_WHITESPACE.findall(line):
                     raise ValueError(
                         "Malformed line %d -- I need one space: %s" % (i, line)
                     )
-                line = [_.strip() for _ in IS_WHITESPACE.split(line, 1)]
-                if len(line) != 2:
-                    raise ValueError("Malformed line %d: %s" % (i, line))
-                self.add(*line)
+                self.add(*[_.strip() for _ in IS_WHITESPACE.split(line, 1)])
         return self.tree
     
     def write(self, mode="newick"):

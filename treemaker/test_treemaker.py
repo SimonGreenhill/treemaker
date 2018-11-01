@@ -281,7 +281,7 @@ class Test_TreeMakerIO(unittest.TestCase):
         t = TreeMaker()
         with self.assertRaises(ValueError):
             t.read(outfile)
-    
+
     def test_read_skips_empty_lines(self):
         outfile = os.path.join(self.tmpdir, 'read-empty.txt')
         with open(outfile, 'w') as handle:
