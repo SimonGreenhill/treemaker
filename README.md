@@ -107,5 +107,7 @@ print(t.write())
 
 ```
 
+### API Documentation
 
+The API is [documented here](https://simongreenhill.github.io/treemaker/build/html/index.html).
 
