@@ -22,7 +22,7 @@ cd treemaker
 python setup.py install
 ```
 
-## Usage: Command line
+## Usage: Command line:
 
 Basic usage: 
 
@@ -66,13 +66,13 @@ To write to file:
 ```
 
 
-## Usage: Library
+## Usage: Library:
 
 ```python
 from treemaker import TreeMaker
 ```
 
-### generate a tree manually
+### generate a tree manually:
 
 ```python
 from treemaker import TreeMaker
@@ -87,7 +87,7 @@ t.add('B2', 'family b, subgroup 2')
 print(t.write())
 ```
 
-### Add from a list
+### Add from a list:
 
 ```python
 from treemaker import TreeMaker
@@ -107,7 +107,18 @@ print(t.write())
 
 ```
 
-### API Documentation
+## API Documentation:
 
 The API is [documented here](https://simongreenhill.github.io/treemaker/build/html/index.html).
 
+## Running treemaker's tests:
+
+To run treemaker's tests simply run:
+
+```shell
+make test
+# or
+python setup.py test
+# or
+python treemaker/test_treemaker.py
+```
