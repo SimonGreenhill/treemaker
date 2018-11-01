@@ -122,3 +122,7 @@ To run treemaker's tests simply run:
 # or
 > python treemaker/test_treemaker.py
 ```
+
+## Support
+
+For questions on how to use or update this, feel free to [open an issue](https://github.com/SimonGreenhill/treemaker/issues). I'll get to it as soon as I can. 
