@@ -5,6 +5,7 @@ A Python library for creating a Newick formatted tree from a set of classificati
 [![Build Status](https://travis-ci.org/SimonGreenhill/treemaker.svg?branch=master)](https://travis-ci.org/SimonGreenhill/treemaker)
 [![Coverage Status](https://coveralls.io/repos/SimonGreenhill/treemaker/badge.svg?branch=master&service=github)](https://coveralls.io/github/SimonGreenhill/treemaker?branch=master)
 [![DOI](https://zenodo.org/badge/22704/SimonGreenhill/treemaker.svg)](https://zenodo.org/badge/latestdoi/22704/SimonGreenhill/treemaker)
+[![status](http://joss.theoj.org/papers/19eae6958062fc8a72d8a02efdaf8b23/status.svg)](http://joss.theoj.org/papers/19eae6958062fc8a72d8a02efdaf8b23)
 
 ## Installation:
 
