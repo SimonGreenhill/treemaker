@@ -19,9 +19,9 @@ bibliography: paper.bib
 
 # Summary
 
-```treemaker``` is a python program to convert a text-based classification schema into a Newick file for use in phylogenetic and bioinformatic programs.
+```treemaker``` is a Python library to convert a text-based classification schema into a Newick file for use in phylogenetic and bioinformatic programs.
 
-Often research in linguistics or cultural evolution produces tree taxonomies or classifications. However, these are often not in a format readily available for use in programs that can understand and manipulate trees. For example, the global taxonomy of languages published by the [Ethnologue](https://www.ethnologue.com/) [@Ethnologue] classifies languages into families and subgroups using a taxonomy string e.g. the language [Kalam](https://www.ethnologue.com/language/kmh) is classified as "Trans-New Guinea, Madang, Kalam-Kobon", while [Mauwake](https://www.ethnologue.com/language/mhl) is classified as "Trans-New Guinea, Madang, Croisilles, Pihom", and [Kare](https://www.ethnologue.com/language/kmf) is "Trans-New Guinea, Madang, Croisilles, Kare". This classification indicates that while all these languages are part of the Madang subgroup of the Trans-New Guinea language family, Kare and Mauwake are more closely related (as they belong to the Croisilles subgroup).
+Research in linguistics or cultural evolution often produces or uses tree taxonomies or classifications. However, these are usually not in a format readily available for use in programs that can understand and manipulate trees. For example, the global taxonomy of languages published by the [Ethnologue](https://www.ethnologue.com/) [@Ethnologue] classifies languages into families and subgroups using a taxonomy string e.g. the language [Kalam](https://www.ethnologue.com/language/kmh) is classified as "Trans-New Guinea, Madang, Kalam-Kobon", while [Mauwake](https://www.ethnologue.com/language/mhl) is classified as "Trans-New Guinea, Madang, Croisilles, Pihom", and [Kare](https://www.ethnologue.com/language/kmf) is "Trans-New Guinea, Madang, Croisilles, Kare". This classification indicates that while all these languages are part of the Madang subgroup of the Trans-New Guinea language family, Kare and Mauwake are more closely related (as they belong to the Croisilles subgroup).
 
 Other publications use a tabular indented format to demarcate relationships, such as the example in Figure 1 from Stephen Wurm's classification of his proposed Yele-Solomons language phylum [@Wurm1975].
 
@@ -29,7 +29,7 @@ Both the taxonomy string and tabular format however are hard to load into softwa
 
 ## Converting a Taxonomy to a Tree:
 
-```treemaker``` can convert a text file with a taxonomy (easily obtained from Ethnologue or manually entered) like this:
+```treemaker``` can convert a text file with a taxonomy to a tree. These taxonomies can easily be obtained from Ethnologue or manually entered, such as this example from Wurm's (outdated) classification of Yele-Solomons in Figure 1:
 
 ```text
 Bilua       Yele-Solomons, Central Solomon
@@ -42,7 +42,7 @@ Dororo      Yele-Solomons, Kazukuru
 Yele        Yele-Solomons
 ```
 
-Into a Newick tree representation:
+``treemaker`` can then generate a Newick representation:
 
 ```text
 ((Baniata,Bilua,Lavukaleve,Savosavo),(Dororo,Guliguli,Kazukuru),Yele);
@@ -53,14 +53,10 @@ Into a Newick tree representation:
 ```treemaker``` has been used to enable the analyses in [@Bromham2018], and a number of forthcoming articles.
 
 
-\clearpage
-
 ![Example of a language taxonomy in indented format from Wurm (1975).](wurm1975.png)
 
-![Tree visualisation of the relationships between these languages.](tree.png)
+![Tree visualisation of the relationships between the putative Yele-Solomons languages.](tree.png)
 
-
-\clearpage
 
 # References
 
