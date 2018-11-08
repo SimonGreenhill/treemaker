@@ -12,7 +12,7 @@ import codecs
 import argparse
 from functools import total_ordering
 
-VERSION = "1.1"
+VERSION = "1.2"
 
 NEXUS_TEMPLATE = """#NEXUS
 

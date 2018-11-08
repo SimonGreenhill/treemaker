@@ -13,11 +13,11 @@
   "identifier": "",
   "codeRepository": "https://github.com/SimonGreenhill/treemaker",
   "datePublished": "2018-09-05",
-  "dateModified": "2018-09-05",
+  "dateModified": "2018-11-08",
   "dateCreated": "2018-09-05",
-  "description": " A Python tool for constructing a newick formatted tree from a set of classifications.",
+  "description": "A Python library for creating a Newick formatted tree from a set of classifications.",
   "keywords": "phylogenetics,newick",
   "license": "BSD",
   "title": "treemaker",
-  "version": "1.0.2"
+  "version": "1.2"
 }
