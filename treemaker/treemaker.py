@@ -143,6 +143,20 @@ class Tree(object):
                 return out
             else:
                 return "(%s)" % out
+    
+    def str_with_nodes(self, nodes):
+        if not self.children:
+            return self.node
+        else:
+            out = ",".join([c.str_with_nodes(nodes) for c in sorted(self.children)])
+            # TODO: Is it better to warn if any of `nodes` is not contained in
+            # the nodes/tips of the tree?
+            if self.node in nodes:
+                return "({0}){1}".format(out, self.node)
+            elif len(self.children) == 1:
+                return out
+            else:
+                return "({0})".format(out)
 
 
 class TreeMaker(object):
@@ -261,7 +275,7 @@ class TreeMaker(object):
                 self.add(*[_.strip() for _ in IS_WHITESPACE.split(line, 1)])
         return self.tree
     
-    def write(self, mode="newick"):
+    def write(self, mode="newick", nodes=[]):
         """
         Writes the output form of the tree.
         
@@ -269,6 +283,7 @@ class TreeMaker(object):
             mode (str): An output mode. One of: 
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
+            nodes (list): Nodes to be labeled in the output.
         
         Returns:
             str: a string containing the formatted content.
@@ -277,18 +292,18 @@ class TreeMaker(object):
             ValueError: if mode is not "nexus" or "newick".
         """
         if mode == 'newick':
-            return "%s;" % str(self.tree)
+            return "%s;" % self.tree.str_with_nodes(nodes)
         elif mode == 'nexus':
             return NEXUS_TEMPLATE % {
                 'label': self.tree.node if self.tree.node else 'tree',
-                'tree': str(self.tree),
+                'tree': self.tree.str_with_nodes(nodes),
             }
         else:
             raise ValueError(
                 "Unknown output mode. Please use 'nexus' or 'newick'"
             )
         
-    def write_to_file(self, filename, mode="nexus"):
+    def write_to_file(self, filename, mode="nexus", nodes=[]):
         """
         Writes the tree to `filename`.
         
@@ -297,6 +312,7 @@ class TreeMaker(object):
             mode (str): An output mode. One of:
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
+            nodes (list): Nodes to be labeled in the output.
         
         Returns:
             None
@@ -309,9 +325,9 @@ class TreeMaker(object):
             raise IOError("File %s already exists" % filename)
         
         if mode == 'nexus':
-            content = self.write(mode="nexus")
+            content = self.write(mode="nexus", nodes=nodes)
         elif mode == 'newick':
-            content = self.write(mode="newick")
+            content = self.write(mode="newick", nodes=nodes)
         else:
             raise ValueError(
                 "Unknown output mode. Please use 'nexus' or 'newick'"

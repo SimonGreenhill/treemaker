@@ -215,10 +215,12 @@ class Test_TreeMakerIO(unittest.TestCase):
     
     def test_write_newick(self):
         assert self.t.write(mode="newick") == "((A,(AB1,AB2)),C);"
-
+        assert self.t.write(mode="newick", nodes=['a','b']) == "((A,(AB1,AB2)b)a,C);"
+    
     def test_write_nexus(self):
         assert self.t.write(mode="nexus").startswith("#NEXUS")
         assert "((A,(AB1,AB2)),C)" in self.t.write(mode="nexus")
+        assert "((A,(AB1,AB2)),(C)c)" in self.t.write(mode="nexus", nodes=['c'])
     
     def test_write_nexus_error_on_bad_method(self):
         with self.assertRaises(ValueError):
