@@ -275,7 +275,7 @@ class TreeMaker(object):
                 self.add(*[_.strip() for _ in IS_WHITESPACE.split(line, 1)])
         return self.tree
     
-    def write(self, mode="newick", nodes=[]):
+    def write(self, mode="newick", show_nodes=[]):
         """
         Writes the output form of the tree.
         
@@ -283,7 +283,7 @@ class TreeMaker(object):
             mode (str): An output mode. One of: 
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
-            nodes (list): Nodes to be labeled in the output.
+            show_nodes (list): Nodes to be labeled in the output.
         
         Returns:
             str: a string containing the formatted content.
@@ -303,7 +303,7 @@ class TreeMaker(object):
                 "Unknown output mode. Please use 'nexus' or 'newick'"
             )
         
-    def write_to_file(self, filename, mode="nexus", nodes=[]):
+    def write_to_file(self, filename, mode="nexus", show_nodes=[]):
         """
         Writes the tree to `filename`.
         
@@ -312,7 +312,7 @@ class TreeMaker(object):
             mode (str): An output mode. One of:
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
-            nodes (list): Nodes to be labeled in the output.
+            show_nodes (list): Nodes to be labeled in the output.
         
         Returns:
             None
@@ -325,9 +325,9 @@ class TreeMaker(object):
             raise IOError("File %s already exists" % filename)
         
         if mode == 'nexus':
-            content = self.write(mode="nexus", nodes=nodes)
+            content = self.write(mode="nexus", show_nodes=show_nodes)
         elif mode == 'newick':
-            content = self.write(mode="newick", nodes=nodes)
+            content = self.write(mode="newick", show_nodes=show_nodes)
         else:
             raise ValueError(
                 "Unknown output mode. Please use 'nexus' or 'newick'"
