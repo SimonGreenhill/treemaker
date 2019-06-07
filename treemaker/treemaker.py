@@ -43,6 +43,8 @@ class Tree(object):
         
         if children is not None:
             [self.add(child) for child in children]
+        
+        self.force_label = False
     
     def __lt__(self, other):
         return self.node < other.node
@@ -131,6 +133,11 @@ class Tree(object):
             if child.is_tip:
                 yield child
     
+    def force_labels(self, nodes):
+        self.force_label = self.node in nodes
+        for child in self.children:
+            child.force_labels(nodes)
+    
     def __repr__(self):
         return "<Tree: %s>" % self.node
     
@@ -139,24 +146,12 @@ class Tree(object):
             return self.node
         else:
             out = ",".join([str(c) for c in sorted(self.children)])
+            if self.force_label:
+                return "(%s)%s" % (out, self.node)
             if len(self.children) == 1:
                 return out
             else:
                 return "(%s)" % out
-    
-    def str_with_nodes(self, nodes):
-        if not self.children:
-            return self.node
-        else:
-            out = ",".join([c.str_with_nodes(nodes) for c in sorted(self.children)])
-            # TODO: Is it better to warn if any of `nodes` is not contained in
-            # the nodes/tips of the tree?
-            if self.node in nodes:
-                return "({0}){1}".format(out, self.node)
-            elif len(self.children) == 1:
-                return out
-            else:
-                return "({0})".format(out)
 
 
 class TreeMaker(object):
@@ -291,12 +286,13 @@ class TreeMaker(object):
         Raises:
             ValueError: if mode is not "nexus" or "newick".
         """
+        self.tree.force_labels(show_nodes)
         if mode == 'newick':
-            return "%s;" % self.tree.str_with_nodes(nodes)
+            return "%s;" % str(self.tree)
         elif mode == 'nexus':
             return NEXUS_TEMPLATE % {
                 'label': self.tree.node if self.tree.node else 'tree',
-                'tree': self.tree.str_with_nodes(nodes),
+                'tree': str(self.tree),
             }
         else:
             raise ValueError(
