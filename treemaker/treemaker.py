@@ -12,7 +12,7 @@ import codecs
 import argparse
 from functools import total_ordering
 
-VERSION = "1.2"
+VERSION = "1.3"
 
 NEXUS_TEMPLATE = """#NEXUS
 
@@ -20,6 +20,8 @@ begin trees;
    tree %(label)s = %(tree)s
 end;
 """
+
+BADCHARS = "();"
 
 IS_WHITESPACE = re.compile(r"""\s+""")
 
@@ -32,14 +34,15 @@ class Tree(object):
     Args:
         node (str): Label for this node.
         children (list): Optional list of children nodes
+        show_nodelabels (boolean): A flag to show nodelabels or not (default=False)
     """
-    def __init__(self, node=None, children=None):
+    def __init__(self, node=None, children=None, show_nodelabels=False):
         self.children = []
-        
+        self.show_nodelabels = show_nodelabels
         if node is None:
             self.node = ''
         else:
-            self.node = str(node)
+            self.node = self._sanitise(str(node))
         
         if children is not None:
             [self.add(child) for child in children]
@@ -72,7 +75,8 @@ class Tree(object):
             treemaker.Tree: the created node matching `label`.
         """
         if not isinstance(node, Tree):
-            node = Tree(node, children)
+            node = Tree(node, children, show_nodelabels=self.show_nodelabels)
+        self._sanitise(node.node)
         self.children.append(node)
         return node
     
@@ -131,6 +135,14 @@ class Tree(object):
             if child.is_tip:
                 yield child
     
+    def _sanitise(self, node):
+        for char in BADCHARS:
+            if char in node:
+                raise ValueError(
+                    "Forbidden character '%s' node: %s" % (char, node)
+                )
+        return node
+
     def __repr__(self):
         return "<Tree: %s>" % self.node
     
@@ -141,13 +153,15 @@ class Tree(object):
             out = ",".join([str(c) for c in sorted(self.children)])
             if len(self.children) == 1:
                 return out
+            elif self.show_nodelabels:
+                return "(%s)%s" % (out, self.node)
             else:
                 return "(%s)" % out
 
 
 class TreeMaker(object):
-    def __init__(self, label="root"):
-        self.tree = Tree(label)
+    def __init__(self, label="root", nodelabels=False):
+        self.tree = Tree(label, show_nodelabels=nodelabels)
         self._added = set()
     
     def _check_taxon(self, taxon):
@@ -269,7 +283,8 @@ class TreeMaker(object):
             mode (str): An output mode. One of: 
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
-        
+            nodelabels (bool): show nodelabels or not (default False)
+
         Returns:
             str: a string containing the formatted content.
         
@@ -297,6 +312,7 @@ class TreeMaker(object):
             mode (str): An output mode. One of:
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
+            nodelabels (bool): show nodelabels or not (default False)
         
         Returns:
             None
@@ -338,21 +354,24 @@ def parse_args(args):
         '-m', "--mode", dest='mode', choices=['nexus', 'newick'], default="newick",
         help="output mode: nexus or newick", action='store'
     )
+    parser.add_argument(
+        '-l', "--labels", dest='nodelabels', default=False,
+        help="show node labels", action='store_true'
+    )
     args = parser.parse_args(args)
     
     if not os.path.isfile(args.input):
         raise IOError("File %s does not exist" % args.input)
     
-    return (args.input, args.mode, args.output)
+    return (args.input, args.mode, args.output, args.nodelabels)
 
 
 def main(args=None):  # pragma: no cover
     if args is None:
         args = sys.argv[1:]
-    infile, mode, outfile = parse_args(args)
-    t = TreeMaker()
+    infile, mode, outfile, nodelabels = parse_args(args)
+    t = TreeMaker(nodelabels=nodelabels)
     t.read(infile)
-    
     if outfile is None:
         print(t.write(mode=mode))
     else:

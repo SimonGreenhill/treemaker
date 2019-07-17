@@ -69,7 +69,7 @@ Basic usage:
 ```shell
 > treemaker
 
-usage: treemaker [-h] [-o OUTPUT] [-m {nexus,newick}] input
+usage: treemaker [-h] [-o OUTPUT] [-m {nexus,newick}] [--labels] input
 ```
 
 e.g. Given a text file:
@@ -86,6 +86,10 @@ LangD   Indo-European, Anatolian
 ```shell
 > treemaker classification.txt
 (LangD,(LangA,LangB),LangC);
+
+# with nodelabels:
+> treemaker --labels classification.txt
+(LangD,(LangA,LangB)Germanic,LangC)Indo-European;
 
 > treemaker -m nexus classification.txt
 
@@ -162,6 +166,11 @@ To run treemaker's tests simply run:
 # or
 > python treemaker/test_treemaker.py
 ```
+
+
+## Version History:
+
+* v1.3: add nodelabels support, add some rudimentary input checking.
 
 ## Support:
 
