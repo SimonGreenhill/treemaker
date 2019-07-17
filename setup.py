@@ -22,6 +22,7 @@ setup(
     version=VERSION,
     description=DESCR,
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/SimonGreenhill/treemaker',
     author='Simon J. Greenhill',
     author_email='simon@simon.net.nz',

@@ -68,6 +68,11 @@
 <code class="descname">test_parse_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_ParseArgs.test_parse_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_ParseArgs.test_parse_mode" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="treemaker.test_treemaker.Test_ParseArgs.test_parse_nodelabels">
+<code class="descname">test_parse_nodelabels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_ParseArgs.test_parse_nodelabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_ParseArgs.test_parse_nodelabels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -150,6 +155,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="treemaker.test_treemaker.Test_Tree.test_sanitise">
+<code class="descname">test_sanitise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree.test_sanitise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree.test_sanitise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="treemaker.test_treemaker.Test_Tree.test_simple">
 <code class="descname">test_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree.test_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree.test_simple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -186,6 +196,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="treemaker.test_treemaker.Test_TreeMaker.test_add_from_exception">
+<code class="descname">test_add_from_exception</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_TreeMaker.test_add_from_exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_TreeMaker.test_add_from_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="treemaker.test_treemaker.Test_TreeMaker.test_error_on_bad_taxon">
 <code class="descname">test_error_on_bad_taxon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_TreeMaker.test_error_on_bad_taxon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_TreeMaker.test_error_on_bad_taxon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -206,8 +221,8 @@
 <dt id="treemaker.test_treemaker.Test_TreeMakerIO">
 <em class="property">class </em><code class="descclassname">treemaker.test_treemaker.</code><code class="descname">Test_TreeMakerIO</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_TreeMakerIO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_TreeMakerIO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Test the IO functionality of TreeMaker in its own test class as there is setup/teardown
-logic.</p>
+<p>Test the IO functionality of TreeMaker in its own test class as we need
+some setup/teardown logic.</p>
 <dl class="classmethod">
 <dt id="treemaker.test_treemaker.Test_TreeMakerIO.setUpClass">
 <em class="property">classmethod </em><code class="descname">setUpClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_TreeMakerIO.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_TreeMakerIO.setUpClass" title="Permalink to this definition">¶</a></dt>
@@ -277,13 +292,44 @@ logic.</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="treemaker.test_treemaker.Test_Tree_Nodelabels">
+<em class="property">class </em><code class="descclassname">treemaker.test_treemaker.</code><code class="descname">Test_Tree_Nodelabels</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree_Nodelabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree_Nodelabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="method">
+<dt id="treemaker.test_treemaker.Test_Tree_Nodelabels.test_deep_tree">
+<code class="descname">test_deep_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree_Nodelabels.test_deep_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree_Nodelabels.test_deep_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="treemaker.test_treemaker.Test_Tree_Nodelabels.test_example">
+<code class="descname">test_example</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree_Nodelabels.test_example"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree_Nodelabels.test_example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="treemaker.test_treemaker.Test_Tree_Nodelabels.test_real">
+<code class="descname">test_real</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree_Nodelabels.test_real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree_Nodelabels.test_real" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="treemaker.test_treemaker.Test_Tree_Nodelabels.test_recursive_add">
+<code class="descname">test_recursive_add</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree_Nodelabels.test_recursive_add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree_Nodelabels.test_recursive_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="treemaker.test_treemaker.Test_Tree_Nodelabels.test_simple">
+<code class="descname">test_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/test_treemaker.html#Test_Tree_Nodelabels.test_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.test_treemaker.Test_Tree_Nodelabels.test_simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-treemaker.treemaker">
 <span id="treemaker-treemaker-module"></span><h2>treemaker.treemaker module<a class="headerlink" href="#module-treemaker.treemaker" title="Permalink to this headline">¶</a></h2>
 <p>TreeMaker</p>
 <dl class="class">
 <dt id="treemaker.treemaker.Tree">
-<em class="property">class </em><code class="descclassname">treemaker.treemaker.</code><code class="descname">Tree</code><span class="sig-paren">(</span><em>node=None</em>, <em>children=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/treemaker.html#Tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.treemaker.Tree" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">treemaker.treemaker.</code><code class="descname">Tree</code><span class="sig-paren">(</span><em>node=None</em>, <em>children=None</em>, <em>show_nodelabels=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/treemaker.html#Tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.treemaker.Tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Tree object to represent the classification taxonomy.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -293,6 +339,7 @@ logic.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>node</strong> (<em>str</em>) – Label for this node.</li>
 <li><strong>children</strong> (<em>list</em>) – Optional list of children nodes</li>
+<li><strong>show_nodelabels</strong> (<em>boolean</em>) – A flag to show nodelabels or not (default=False)</li>
 </ul>
 </td>
 </tr>
@@ -400,7 +447,7 @@ node.</td>
 
 <dl class="class">
 <dt id="treemaker.treemaker.TreeMaker">
-<em class="property">class </em><code class="descclassname">treemaker.treemaker.</code><code class="descname">TreeMaker</code><span class="sig-paren">(</span><em>label='root'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/treemaker.html#TreeMaker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.treemaker.TreeMaker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">treemaker.treemaker.</code><code class="descname">TreeMaker</code><span class="sig-paren">(</span><em>label='root'</em>, <em>nodelabels=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/treemaker/treemaker.html#TreeMaker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#treemaker.treemaker.TreeMaker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="treemaker.treemaker.TreeMaker.add">
@@ -518,15 +565,22 @@ name, the second the classification string, e.g.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mode</strong> (<em>str</em>) – An output mode. One of:
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> (<em>str</em>) – An output mode. One of:
 * “nexus” = a nexus file is generated
-* “newick” = a newick file (bare tree) is generated</td>
+* “newick” = a newick file (bare tree) is generated</li>
+<li><strong>nodelabels</strong> (<em>bool</em>) – show nodelabels or not (default False)</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a string containing the formatted content.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a string containing the formatted content.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if mode is not “nexus” or “newick”.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – if mode is not “nexus” or “newick”.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -540,9 +594,12 @@ name, the second the classification string, e.g.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mode</strong> (<em>str</em>) – An output mode. One of:
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> (<em>str</em>) – An output mode. One of:
 * “nexus” = a nexus file is generated
-* “newick” = a newick file (bare tree) is generated</p>
+* “newick” = a newick file (bare tree) is generated</li>
+<li><strong>nodelabels</strong> (<em>bool</em>) – show nodelabels or not (default False)</li>
+</ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
