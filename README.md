@@ -176,6 +176,10 @@ To run treemaker's tests simply run:
 
 For questions on how to use or update this, feel free to [open an issue](https://github.com/SimonGreenhill/treemaker/issues). I'll get to it as soon as I can. 
 
+## Acknowledgements:
+
+Thank you to [Richard Littauer](https://github.com/RichardLitt), [Mitsuhiro Nakamura](https://github.com/mnacamura), and [Dillon Niederhut](https://github.com/deniederhut).
+
 ## References:
 
 * Bromham, Lindell, Xia Hua, Marcel Cardillo, Hilde Schneemann, & Simon J. Greenhill. 2018. “[Parasites and Politics: Why Cross-Cultural Studies Must Control for Relatedness, Proximity and Covariation](https://doi.org/10.1098/rsos.181100).” Open Science 5 (8). https://doi.org/10.1098/rsos.181100.
