@@ -283,8 +283,7 @@ class TreeMaker(object):
             mode (str): An output mode. One of: 
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
-            nodelabels (bool): show nodelabels or not (default False)
-
+        
         Returns:
             str: a string containing the formatted content.
         
@@ -312,7 +311,6 @@ class TreeMaker(object):
             mode (str): An output mode. One of:
                 * "nexus" = a nexus file is generated
                 * "newick" = a newick file (bare tree) is generated
-            nodelabels (bool): show nodelabels or not (default False)
         
         Returns:
             None
