@@ -170,6 +170,7 @@ To run treemaker's tests simply run:
 
 ## Version History:
 
+* v1.4: fix bug with no terminating semicolon in nexus file output.
 * v1.3: add nodelabels support, add some rudimentary input checking.
 
 ## Support:

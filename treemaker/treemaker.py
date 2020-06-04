@@ -12,12 +12,12 @@ import codecs
 import argparse
 from functools import total_ordering
 
-VERSION = "1.3"
+VERSION = "1.4"
 
 NEXUS_TEMPLATE = """#NEXUS
 
 begin trees;
-   tree %(label)s = %(tree)s
+   tree %(label)s = %(tree)s;
 end;
 """
 

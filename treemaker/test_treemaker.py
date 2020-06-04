@@ -311,7 +311,8 @@ class Test_TreeMakerIO(unittest.TestCase):
         with open(outfile, 'r') as handle:
             content = handle.read().strip()
         assert content.startswith("#NEXUS")
-            
+        assert 'tree root = ((A,(AB1,AB2)),C);' in content
+
     def test_write_to_newick(self):
         outfile = os.path.join(self.tmpdir, 'out.nwk')
         self.t.write_to_file(outfile, mode="newick")
