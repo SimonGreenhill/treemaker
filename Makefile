@@ -5,7 +5,8 @@ build:
 
 release: build
 	#python setup.py sdist bdist_wheel upload
-	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	twine check dist/*
+	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 docs:
 	sphinx-apidoc -f -o docs/source treemaker
