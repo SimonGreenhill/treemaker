@@ -1,2 +1,2 @@
-sphinx==3.3.1
+sphinx==7.3.5
 sphinxcontrib-napoleon==0.7
